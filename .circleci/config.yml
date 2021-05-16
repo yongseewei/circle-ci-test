@@ -31,8 +31,8 @@ jobs:
       - run: return 1
     
       - run:
-        command: echo "jobs failed"
-        when: on_fail
+            command: echo "jobs failed"
+            when: on_fail
 
 # Orchestrate or schedule a set of jobs
 workflows:
