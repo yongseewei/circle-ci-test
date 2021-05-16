@@ -14,7 +14,7 @@ jobs:
           paths:
             - .
       
-   print_output_file:
+  print_output_file:
     docker:
       - image: circleci/node:13.8.0  
     steps:
@@ -30,6 +30,6 @@ workflows:
     # Run the welcome/run job in its own container
     jobs:
       - save_hello_world_output
-      -  print_output_file:
+      - print_output_file:
           requires: 
             - save_hello_world_output
