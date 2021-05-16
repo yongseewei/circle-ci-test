@@ -1,10 +1,10 @@
 # Use the latest 2.1 version of CircleCI pipeline process engine. See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
 # Use a package of configuration called an orb.
-commands:
-  print_pipeline_id:
-    steps:
-      - run: echo $CIRCLE_WORKFLOW_ID 
+# commands:
+#   print_pipeline_id:
+#     steps:
+#       - run: echo $CIRCLE_WORKFLOW_ID 
 # jobs
 jobs:
 #   save_hello_world_output:
@@ -24,11 +24,16 @@ jobs:
 #       - attach_workspace:
 #           at: .
 #       - run: cat output.txt
-  call_command:
+  fail_jobs:
     docker:
       - image: circleci/node:13.8.0  
     steps:
-      - print_pipeline_id
+      - run: return 1
+    
+    steps:
+      - run:
+        command: echo "jobs failed"
+        when: on_fail
 
 # Orchestrate or schedule a set of jobs
 workflows:
@@ -36,4 +41,4 @@ workflows:
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - call_command
+      - fail_jobs
