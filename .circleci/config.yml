@@ -30,7 +30,6 @@ jobs:
     steps:
       - run: return 1
     
-    steps:
       - run:
         command: echo "jobs failed"
         when: on_fail
