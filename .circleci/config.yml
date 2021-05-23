@@ -19,13 +19,9 @@ jobs:
           command: |
             apk add --update ansible # install the dependencies needed for your playbook
       - run:
-          name: Show pwd
-          command: |
-            pwd
-      - run:
           name: Show ls
           command: |
-            ls
+            ls ansible/
       - run:
           name: Configure server
           command: |
