@@ -7,17 +7,22 @@ version: 2.1
 #       - run: echo $CIRCLE_WORKFLOW_ID 
 # jobs
 jobs:
-  create_infrastructure:
+  configure_infrastructure:
     docker:
-      - image: amazon/aws-cli  
+      - image: python:3.7-alpine3.1
     steps:
       - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "6b:6c:75:56:88:a6:72:5a:8d:7f:d6:b1:2d:8e:bb:f3"
       - run:
-          name: Ensure backend infrastructure exist
+          name: Install dependencies
           command: |
-            aws cloudformation deploy \
-              --template-file .circleci/template.yml \
-              --stack-name my-stack
+            apk add --update ansible # install the dependencies needed for your playbook
+      - run:
+          name: Configure server
+          command: |
+            ansible-playbook -i .circleci/ansible/inventory.txt .circleci/ansible/main-remote.yml
 
 # Orchestrate or schedule a set of jobs
 workflows:
@@ -25,4 +30,4 @@ workflows:
   welcome:
     # Run the welcome/run job in its own container
     jobs:
-      - create_infrastructure
+      - configure_infrastructure
