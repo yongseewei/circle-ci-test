@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Configure server
           command: |
-            ansible-playbook -i ansible/inventory.txt ansible/main-remote.yml
+            ansible-playbook -i ansible/inventory ansible/main-remote.yml
 
 # Orchestrate or schedule a set of jobs
 workflows:
